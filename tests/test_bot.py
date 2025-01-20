@@ -5,20 +5,18 @@ from unittest.mock import patch
 import requests
 from requests.models import Response
 
-# Definindo uma fixture para criar o cliente com a chave de API
 @pytest.fixture
 def client():
     return HeyGenClient(api_key="fake_api_key")
 
-# Teste para registrar webhook
 def test_register_webhook(client):
     # Dados de entrada simulados
-    endpoint_url = "https://example.com/webhook"
+    endpoint_url = "https://api.heygen.com/v1/webhook/endpoint.add"  # Corrigido para o URL correto
     events = ["video.created", "video.updated"]
 
-    # Simulando a resposta da API com o requests-mock
+    # Simulando a resposta da API com requests-mock
     with patch('requests.post') as mock_post:
-        # Criando um objeto de resposta simulado
+        # Criando um objeto de resposta simulada
         mock_response = Response()
         mock_response.status_code = 200
         mock_response._content = b'{"success": true, "message": "Webhook registered successfully"}'
